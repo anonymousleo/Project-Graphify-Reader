@@ -2,6 +2,15 @@
 
 **A standalone Claude skill for restoring project context across chats.**
 
+## What's new in v1.0.1
+
+After a successful real-project retrieval test, the Reader now explicitly
+checks raw `graph.json` nodes/relationships and `evidence.jsonl` provenance,
+recognizes both `edges` and `links`, flags circular source excerpts and
+misdirected relationships, separates external account memory from current
+Project decisions, and handles incomplete historical chat coverage more
+carefully. The updated skill still requires a live Claude browser re-test.
+
 Project Graphify Reader helps Claude pick up a long-running research or
 software project in a new chat inside the **same Claude Project**. It reads
 saved project knowledge and memory, checks accessible recent conversations
@@ -100,8 +109,8 @@ If the Writer produced knowledge files, the Reader prioritizes:
 1. `CONTINUATION.md` — current status, blockers and next actions.
 2. `PROJECT_MEMORY.md` — stable goals and compact context.
 3. `GRAPH_REPORT.md` — human-readable inventory.
-4. `graph.json` — detailed entities and relationships.
-5. `evidence.jsonl` — per-fact provenance.
+4. `graph.json` — detailed entities and relationships; use for factual lookups.
+5. `evidence.jsonl` — per-fact provenance; use to verify consequential claims.
 
 When those files are missing, it uses Claude's native project-scoped past-chat
 search **if enabled and accessible**. This fallback can recover valuable
